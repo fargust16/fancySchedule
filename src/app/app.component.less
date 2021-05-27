@@ -1,0 +1,51 @@
+.sch {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  &__title {
+  }
+
+  &__body {
+    margin-top: 50px;
+  }
+
+  &__form {
+    margin-top: 50px;
+  }
+}
+
+.drag-n-drop {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 800px;
+  height: 300px;
+
+  border: 4px lightgray dashed;
+
+
+  &__title {
+
+    color: lightgray;
+    text-align: center;
+
+    p {
+
+    }
+  }
+
+  &__file {
+
+  }
+
+  &--active {
+    border-color: dodgerblue;
+    & .drag-n-drop__title h2 {
+      color: dodgerblue;
+    }
+  }
+}
+
