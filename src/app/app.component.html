@@ -11,11 +11,22 @@
       <label for="fileDropRef" class="btn btn-primary">Выбрать файл на устройстве</label>
     </section>
 
-
     <form class="sch__form">
-      <ngx-datepicker name="dateFrom" [(ngModel)]="dateFrom" [options]="optionsFrom"></ngx-datepicker>
-      <ngx-datepicker name="dateTo" [(ngModel)]="dateTo" [options]="optionsTo"></ngx-datepicker>
+      <mat-form-field appearance="fill">
+        <mat-label>Укажите рабочую неделю</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Дата начала">
+          <input matEndDate formControlName="end" placeholder="Дата конца">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Некорректная дата начала</mat-error>
+        <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Некорректная дата конца</mat-error>
+      </mat-form-field>
     </form>
+
+    <app-table *ngIf="tableData.length" [elementData]="tableData"></app-table>
 
   </section>
 </article>

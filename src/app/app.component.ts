@@ -1,9 +1,6 @@
-import { Component } from '@angular/core';
-import {DatepickerOptions} from "ng2-datepicker";
-
-import { getYear } from 'date-fns';
-import locale from 'date-fns/locale/ru';
+import {Component} from '@angular/core';
 import * as XLSX from "xlsx";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -11,33 +8,14 @@ import * as XLSX from "xlsx";
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  dateFrom = new Date();
-  dateTo = new Date();
+  constructor() {}
 
-  optionsFrom: DatepickerOptions = {
-    placeholder: 'дата начала',
-    minYear: getYear(new Date()),
-    maxYear: getYear(new Date()) + 1,
-    maxDate: new Date(),
-    format: 'dd.MM.yyyy', // date format to display in input
-    locale: locale,
-    firstCalendarDay: 1, // 0 - Sunday, 1 - Monday
-    formatTitle: 'LLLL yyyy',
-    formatDays: 'EEEEEE',
-  };
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
 
-
-  optionsTo: DatepickerOptions = {
-    placeholder: 'дата конца',
-    minYear: getYear(new Date()),
-    maxYear: getYear(new Date()) + 1,
-    maxDate: new Date(),
-    format: 'dd.MM.yyyy', // date format to display in input
-    locale: locale,
-    firstCalendarDay: 1, // 0 - Sunday, 1 - Monday
-    formatTitle: 'LLLL yyyy',
-    formatDays: 'EEEEEE',
-  };
+  tableData: any = [];
 
   uploadFile(evt: any){
     const file = evt[0];
@@ -56,6 +34,8 @@ export class AppComponent {
       /* save data */
       const data = XLSX.utils.sheet_to_json(ws); // to get 2d array pass 2nd parameter as object {header: 1}
       console.log(data); // Data will be logged in array format containing objects
+
+      this.tableData = data;
     };
   }
 
